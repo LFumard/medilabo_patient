@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PatientService {
 
-    void save(Patient patient);
+    void addPatient(Patient patient);
 
     Patient getPatient(Long patientId);
 

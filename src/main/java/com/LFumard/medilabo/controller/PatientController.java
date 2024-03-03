@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class PatientController {
@@ -25,13 +26,20 @@ public class PatientController {
     private static final Logger logger = LogManager.getLogger("PatientController");
 
 
-    @GetMapping("/patient/list")
+/*    @GetMapping("/patient/list")
     public String home(Model model) {
         logger.info("New request Mapping : show all Patients");
-        model.addAttribute("patientsList", patientRepository.findAll());
+        model.addAttribute("patientList", patientService.findAll());
         return "patient/list";
+    }*/
+    @GetMapping("/patient/list")
+    public List<Patient> home(Model model) {
+        logger.info("New request Mapping : show all Patients");
+        //model.addAttribute("patientList", patientService.findAll());
+        return patientService.findAll();
     }
 
+    /*
     @GetMapping("/patient/add")
     public String addPatient(Model model) {
         logger.info("New request Mapping : show form to add new Patient");
@@ -39,45 +47,62 @@ public class PatientController {
         return "patient/add";
     }
 
-    @PostMapping("/patient/validate")
+   /* @PostMapping("/patient/validate")
     public String validate(@Valid Patient patient, BindingResult result, Model model) {
 
         if(result.hasErrors()) {
             logger.error("New request Post Mapping : ERROR add new patient : " + patient);
             return "patient/add";
         }
-            patientService.save(patient);
-            model.addAttribute("patientsList", patientService.findAll());
-            logger.info("New request Post Mapping : Add new Patient : " + patient);
-            return "redirect:/patient/list";
+        patientService.addPatient(patient);
+        model.addAttribute("patientList", patientService.findAll());
+        logger.info("New request Post Mapping : Add new Patient : " + patient);
+        return "redirect:/patient/list";
+    }*/
+
+    @PostMapping("/patient/add")
+    public List<Patient> validate(@Valid Patient patient, BindingResult result, Model model) {
+
+        if(result.hasErrors()) {
+            logger.error("New request Post Mapping : ERROR add new patient : " + patient);
+            //return "patient/add";
+            return null;
+        }
+        patientService.addPatient(patient);
+        //model.addAttribute("patientList", patientService.findAll());
+        logger.info("New request Post Mapping : Add new Patient : " + patient);
+        return(patientService.findAll());
+        //return "redirect:/patient/list";
     }
-
     @GetMapping("/patient/update/{patientId}")
-    public String showUpdatePatientForm(@PathVariable("patientId") Long patientId, Model model) {
+    public Patient showUpdatePatientForm(@PathVariable("patientId") Long patientId, Model model) {
 
-        model.addAttribute("bidList",patientService.findById(patientId));
+        //model.addAttribute("patient",patientService.findById(patientId));
         logger.info("New request Get Mapping : update patient : " + patientId);
-        return "patient/update";
+        //return "patient/update";
+        return patientService.findById(patientId);
     }
 
     @PostMapping("/patient/update/{patientId}")
-    public String updatePatient(@PathVariable("patientId") Long patientId, Patient patient,
+    public List<Patient> updatePatient(@PathVariable("patientId") Long patientId, Patient patient,
                                 BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             logger.error("New request Post Mapping : ERROR update patient : " + patient);
-            return "patient/update";
+            //return "patient/update";
+            return null;
         }
         logger.info("New request Post Mapping : update patient : " + patient);
         patientService.updatePatient(patient, patientId);
-        model.addAttribute("patient", patientService.findAll());
-        return "redirect:/patient/list";
+        //model.addAttribute("patientList", patientService.findAll());
+        //return "redirect:/patient/list";
+        return(patientService.findAll());
     }
 
-    @DeleteMapping(value = "/Patient/delete/{patientId}")
-    public void deletePatientById(@PathVariable Long patientId) {
+    @GetMapping(value = "/patient/delete/{patientId}")
+    public void deletePatientById(@PathVariable("patientId") Long patientId) {
         patientService.deleteById(patientId);
         logger.info("New request Get Mapping : delete patient : " + patientId);
-
+        //return "redirect:/patient/list";
     }
 }

@@ -9,11 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.LFumard</groupId>
-	<artifactId>medilabo</artifactId>
+	<artifactId>medilabo_patient</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>medilabo</name>
 	<description>MediLaboSolution</description>
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
