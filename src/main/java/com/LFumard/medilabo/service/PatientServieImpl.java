@@ -19,7 +19,7 @@ public class PatientServieImpl implements PatientService {
         patientToSave.setAddress(patient.getAddress());
         patientToSave.setBirthdate(patient.getBirthdate());
         patientToSave.setSex(patient.getSex());
-        patientToSave.setPhonenumber(patient.getPhonenumber());
+        patientToSave.setPhoneNumber(patient.getPhoneNumber());
         patientToSave.setFirstName(patient.getFirstName());
         patientToSave.setLastName(patient.getLastName());
         patientRepository.save(patientToSave);
@@ -31,7 +31,7 @@ public class PatientServieImpl implements PatientService {
     }
 
     @Override
-    public void updatePatient(Patient patient, Long patientId) {
+    public void updatePatient(Long patientId, Patient patient) {
         Patient patientToSave = patientRepository.findById(patientId).orElseThrow(() -> new RuntimeException("Patient doesn't exist"));
         patientRepository.save(patient);
     }

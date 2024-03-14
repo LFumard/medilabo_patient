@@ -49,5 +49,5 @@ public class Patient {
     private String address;
 
     @Size(max = 15, message = "max size is limited to 15")
-    private String phonenumber;
+    private String phoneNumber;
 }

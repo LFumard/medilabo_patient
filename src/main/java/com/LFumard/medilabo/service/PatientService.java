@@ -10,7 +10,7 @@ public interface PatientService {
 
     Patient getPatient(Long patientId);
 
-    void updatePatient(Patient patient, Long patientId);
+    void updatePatient(Long id, Patient patient);
 
     List<Patient> findAll();
 

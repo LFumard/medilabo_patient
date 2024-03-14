@@ -1,108 +1,65 @@
 package com.LFumard.medilabo.controller;
 
 import com.LFumard.medilabo.model.Patient;
-import com.LFumard.medilabo.repository.PatientRepository;
 import com.LFumard.medilabo.service.PatientService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/patient")
 public class PatientController {
+
+    private Logger logger = LoggerFactory.getLogger(PatientController.class);
 
     @Autowired
     private PatientService patientService;
 
-    @Autowired
-    private PatientRepository patientRepository;
-
-    private static final Logger logger = LogManager.getLogger("PatientController");
-
-
-/*    @GetMapping("/patient/list")
-    public String home(Model model) {
-        logger.info("New request Mapping : show all Patients");
-        model.addAttribute("patientList", patientService.findAll());
-        return "patient/list";
-    }*/
-    @GetMapping("/patient/list")
-    public List<Patient> home(Model model) {
-        logger.info("New request Mapping : show all Patients");
-        //model.addAttribute("patientList", patientService.findAll());
+    @GetMapping("/list")
+    public List<Patient> getAllPatients() {
         return patientService.findAll();
     }
 
-    /*
-    @GetMapping("/patient/add")
-    public String addPatient(Model model) {
-        logger.info("New request Mapping : show form to add new Patient");
-        model.addAttribute("patient", new Patient());
-        return "patient/add";
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deletePatient(@PathVariable Long id) {
+        patientService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-   /* @PostMapping("/patient/validate")
-    public String validate(@Valid Patient patient, BindingResult result, Model model) {
-
-        if(result.hasErrors()) {
-            logger.error("New request Post Mapping : ERROR add new patient : " + patient);
-            return "patient/add";
-        }
-        patientService.addPatient(patient);
-        model.addAttribute("patientList", patientService.findAll());
-        logger.info("New request Post Mapping : Add new Patient : " + patient);
-        return "redirect:/patient/list";
+    //@PostMapping(path = "/add", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    //@PostMapping(path = "/validate", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+  /*  @PostMapping(path = "/validate")
+    //public RedirectView savePatientUri(@ModelAttribute Patient newPatient) {
+    public RedirectView savePatientUri(@RequestBody Patient newPatient) {
+        patientService.addPatient(newPatient);
+        return new RedirectView("/patient/all");
     }*/
 
-    @PostMapping("/patient/add")
-    public List<Patient> validate(@Valid Patient patient, BindingResult result, Model model) {
-
-        if(result.hasErrors()) {
-            logger.error("New request Post Mapping : ERROR add new patient : " + patient);
-            //return "patient/add";
-            return null;
-        }
-        patientService.addPatient(patient);
-        //model.addAttribute("patientList", patientService.findAll());
-        logger.info("New request Post Mapping : Add new Patient : " + patient);
-        return(patientService.findAll());
-        //return "redirect:/patient/list";
-    }
-    @GetMapping("/patient/update/{patientId}")
-    public Patient showUpdatePatientForm(@PathVariable("patientId") Long patientId, Model model) {
-
-        //model.addAttribute("patient",patientService.findById(patientId));
-        logger.info("New request Get Mapping : update patient : " + patientId);
-        //return "patient/update";
-        return patientService.findById(patientId);
+    @PostMapping(path = "/validate")
+    public void savePatientUri(@RequestBody Patient newPatient) {
+        patientService.addPatient(newPatient);
     }
 
-    @PostMapping("/patient/update/{patientId}")
-    public List<Patient> updatePatient(@PathVariable("patientId") Long patientId, Patient patient,
-                                BindingResult result, Model model) {
-
-        if (result.hasErrors()) {
-            logger.error("New request Post Mapping : ERROR update patient : " + patient);
-            //return "patient/update";
-            return null;
-        }
-        logger.info("New request Post Mapping : update patient : " + patient);
-        patientService.updatePatient(patient, patientId);
-        //model.addAttribute("patientList", patientService.findAll());
-        //return "redirect:/patient/list";
-        return(patientService.findAll());
+    @PutMapping("/update/{id}")
+    public void updatePatient(@PathVariable Long id,@RequestBody @Valid Patient patient) {
+        patientService.updatePatient(id, patient);
     }
 
-    @GetMapping(value = "/patient/delete/{patientId}")
-    public void deletePatientById(@PathVariable("patientId") Long patientId) {
-        patientService.deleteById(patientId);
-        logger.info("New request Get Mapping : delete patient : " + patientId);
-        //return "redirect:/patient/list";
+    @GetMapping("/update/{id}")
+    public Patient showUpdateForm(@PathVariable Long id) {
+        return patientService.findById(id);
+    }
+
+    @PostMapping(path = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void savePatient(@RequestBody Patient newPatient) {
+        patientService.addPatient(newPatient);
     }
 }
