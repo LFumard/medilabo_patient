@@ -57,7 +57,10 @@ public class PatientController {
     public Patient showUpdateForm(@PathVariable Long id) {
         return patientService.findById(id);
     }
-
+    @GetMapping("/{id}")
+    public Patient showPatient(@PathVariable Long id) {
+        return patientService.findById(id);
+    }
     @PostMapping(path = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void savePatient(@RequestBody Patient newPatient) {
         patientService.addPatient(newPatient);
