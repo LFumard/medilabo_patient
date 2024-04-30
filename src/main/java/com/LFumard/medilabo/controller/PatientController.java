@@ -23,13 +23,17 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
-    @GetMapping("/list")
+    @GetMapping("/list") // OK
     public List<Patient> getAllPatients() {
+
+        logger.info("New request GetMapping : show all Patients");
         return patientService.findAll();
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}") // OK
     public ResponseEntity<Void> deletePatient(@PathVariable Long id) {
+
+        logger.info("New request DeleteMapping : deletePatient : " + id);
         patientService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -43,26 +47,36 @@ public class PatientController {
         return new RedirectView("/patient/all");
     }*/
 
-    @PostMapping(path = "/validate")
+    @PostMapping(path = "/validate") // OK
     public void savePatientUri(@RequestBody Patient newPatient) {
+
+        logger.info("New request PostMapping : savePatientUri : " + newPatient.toString());
         patientService.addPatient(newPatient);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{id}") // OK
     public void updatePatient(@PathVariable Long id,@RequestBody @Valid Patient patient) {
+
+        logger.info("New request PutMapping : updatePatient : " + patient.toString());
         patientService.updatePatient(id, patient);
     }
 
-    @GetMapping("/update/{id}")
+/*    @GetMapping("/update/{id}")
     public Patient showUpdateForm(@PathVariable Long id) {
+
+        logger.info("New request GetMapping : show Update Form");
         return patientService.findById(id);
-    }
-    @GetMapping("/{id}")
+    }*/
+    @GetMapping("/{id}") // OK
     public Patient showPatient(@PathVariable Long id) {
+
+        logger.info("New request GetMapping : showPatient");
         return patientService.findById(id);
     }
-    @PostMapping(path = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
+/*    @PostMapping(path = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void savePatient(@RequestBody Patient newPatient) {
+
+        logger.info("New request PostMapping : savePatient : " + newPatient.toString());
         patientService.addPatient(newPatient);
-    }
+    }*/
 }

@@ -1,6 +1,7 @@
 package com.LFumard.medilabo.model;
 
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,12 +9,13 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
-import javax.persistence.*;
+//import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -50,4 +52,5 @@ public class Patient {
 
     @Size(max = 15, message = "max size is limited to 15")
     private String phoneNumber;
+
 }

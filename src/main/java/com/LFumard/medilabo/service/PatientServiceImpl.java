@@ -8,10 +8,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PatientServieImpl implements PatientService {
+public class PatientServiceImpl implements PatientService {
 
     @Autowired
     private PatientRepository patientRepository;
+
+    /*public PatientServieImpl(PatientRepository patientRepository) {
+        this.patientRepository = patientRepository;
+    }*/
 
     @Override
     public void addPatient(Patient patient) {
@@ -25,10 +29,10 @@ public class PatientServieImpl implements PatientService {
         patientRepository.save(patientToSave);
     }
 
-    @Override
+/*    @Override
     public Patient getPatient(Long patientId) {
         return patientRepository.findById(patientId).orElse(null);
-    }
+    }*/
 
     @Override
     public void updatePatient(Long patientId, Patient patient) {
@@ -43,7 +47,7 @@ public class PatientServieImpl implements PatientService {
 
     @Override
     public Patient findById(Long patientId) {
-        return patientRepository.findById(patientId).orElseThrow(() -> new IllegalArgumentException("Patient doesn't exist"));
+        return patientRepository.findById(patientId).orElseThrow(() -> new RuntimeException("Patient doesn't exist"));
     }
 
     @Override
