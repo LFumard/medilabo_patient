@@ -1,7 +1,6 @@
 package com.LFumard.medilabo.security.jwt;
 
 //import com.LFumard.medilabo.security;
-import com.LFumard.medilabo.security.jwt.JwtUtils;
 import com.LFumard.medilabo.security.services.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
