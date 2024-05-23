@@ -155,7 +155,7 @@
 										<limit>
 											<counter>LINE</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.30</minimum>
+											<minimum>0.80</minimum>
 										</limit>
 									</limits>
 								</rule>
@@ -163,6 +163,15 @@
 						</configuration>
 					</execution>
 				</executions>
+				<configuration>
+					<excludes>
+						<exclude>com/LFumard/medilabo/controller/Auth*</exclude>
+						<exclude>com/LFumard/medilabo/model/*</exclude>
+						<exclude>com/LFumard/medilabo/payload/*/*</exclude>
+						<exclude>com/LFumard/medilabo/security/services/*</exclude>
+						<exclude>com/LFumard/medilabo/security/jwt/*</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 			<!-- Surefire report in HTML (mvn test) -->
 			<plugin>
