@@ -1,6 +1,5 @@
 package com.LFumard.medilabo.security.services;
 
-//import com.LFumard.medilabo.repository.UserRepository;
 import com.LFumard.medilabo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

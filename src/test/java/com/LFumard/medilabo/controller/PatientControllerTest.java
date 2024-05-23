@@ -3,7 +3,7 @@ package com.LFumard.medilabo.controller;
 import com.LFumard.medilabo.model.Patient;
 import com.LFumard.medilabo.service.PatientServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -20,7 +20,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.http.RequestEntity.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,7 +31,9 @@ import java.util.List;
 @WebMvcTest(PatientController.class)
 @AutoConfigureMockMvc
 @ExtendWith(MockitoExtension.class)
-public class PatientControllerTest {
+public class
+
+PatientControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -108,7 +109,6 @@ public class PatientControllerTest {
     public void testSavePatientUri() throws Exception {
 
         Patient patientToAdd = new Patient(1L, "patientFirstName1", "patientLastName1", LocalDate.of(1971,1,1), "M", "patientAddress1", "1111111111");
-        //patientService.addPatient(patientToAdd);
         String strContent = objectMapper.writeValueAsString(patientToAdd);
         this.mockMvc
                 .perform(MockMvcRequestBuilders
@@ -124,7 +124,6 @@ public class PatientControllerTest {
     public void testUpdatePatient() throws Exception {
 
         Patient patientToUpdate = new Patient(1L, "patientFirstName1", "patientLastName1Update", LocalDate.of(1971,1,1), "M", "patientAddress1", "1111111111");
-        //patientService.addPatient(patientToAdd);
         String strContent = objectMapper.writeValueAsString(patientToUpdate);
         doNothing().when(patientService).updatePatient(1L, patientToUpdate);
         this.mockMvc

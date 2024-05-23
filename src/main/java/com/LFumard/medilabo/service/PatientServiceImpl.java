@@ -13,10 +13,6 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
-    /*public PatientServieImpl(PatientRepository patientRepository) {
-        this.patientRepository = patientRepository;
-    }*/
-
     @Override
     public void addPatient(Patient patient) {
         Patient patientToSave = new Patient();
@@ -28,11 +24,6 @@ public class PatientServiceImpl implements PatientService {
         patientToSave.setLastName(patient.getLastName());
         patientRepository.save(patientToSave);
     }
-
-/*    @Override
-    public Patient getPatient(Long patientId) {
-        return patientRepository.findById(patientId).orElse(null);
-    }*/
 
     @Override
     public void updatePatient(Long patientId, Patient patient) {

@@ -46,10 +46,8 @@ public class PatientServiceImplTest {
         Patient expectedPatient = new Patient(1L, "patientFirstName1", "patientLastName1", LocalDate.of(1971,1,1), "M", "patientAddress1", "1111111111");
         when(patientRepository.findById(id)).thenReturn(Optional.of(expectedPatient));
 
-        // Act
         Patient actualPatient = patientService.findById(id);
 
-        // Assert
         assertNotNull(actualPatient);
         assertEquals(expectedPatient, actualPatient);
         verify(patientRepository, times(1)).findById(id);
@@ -59,7 +57,7 @@ public class PatientServiceImplTest {
     public void testGetPatient_WhenPatientNotExist() {
 
         Long id = 1L;
-        Patient expectedPatient = new Patient(1L, "patientFirstName1", "patientLastName1", LocalDate.of(1971,1,1), "M", "patientAddress1", "1111111111");
+        //Patient expectedPatient = new Patient(1L, "patientFirstName1", "patientLastName1", LocalDate.of(1971,1,1), "M", "patientAddress1", "1111111111");
         when(patientRepository.findById(id)).thenReturn(Optional.empty());
 
         assertThrows(RuntimeException.class, () -> {

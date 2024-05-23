@@ -25,7 +25,6 @@ import com.LFumard.medilabo.model.User;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -48,7 +47,6 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
-    //public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
     public String authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager
@@ -61,14 +59,6 @@ public class AuthController {
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
         return jwtCookie.getValue();
-        /*List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(new UserInfoResponse(userDetails.getId(),
-                        userDetails.getUsername(),
-                        roles));*/
     }
 
     @PostMapping("/signup")
@@ -99,7 +89,6 @@ public class AuthController {
                 .body(new UserInfoResponse(userDetails.getId(),
                         userDetails.getUsername(),
                         strRoles));
-        //return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
     @PostMapping("/signout")

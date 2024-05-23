@@ -30,12 +30,12 @@ public class Patient {
 
     @NotBlank(message = "FirstName is mandatory")
     @Size(max = 50, message = "max size is limited to 50")
-    @Column(name = "firstname")
+    @Column(name = "firstname", nullable=false, length=50)
     private String firstName;
 
     @NotBlank(message = "LastName is mandatory")
     @Size(max = 50, message = "max size is limited to 50")
-    @Column(name = "lastname")
+    @Column(name = "lastname", nullable=false, length=50)
     private String lastName;
 
     @NotNull
@@ -43,7 +43,7 @@ public class Patient {
     private LocalDate birthdate;
 
     @NotBlank(message = "Sex is mandatory (M or F)")
-    @Column(name = "sex")
+    @Column(name = "sex", nullable=false, length=2)
     @Pattern(regexp = "[MF]", message = "Gender must be 'M' or 'F'")
     private String sex;
 
@@ -51,6 +51,7 @@ public class Patient {
     private String address;
 
     @Size(max = 15, message = "max size is limited to 15")
+    @Column(name = "phonenumber", nullable=true, length=15)
     private String phoneNumber;
 
 }

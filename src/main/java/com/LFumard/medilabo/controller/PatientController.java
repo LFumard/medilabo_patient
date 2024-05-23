@@ -21,14 +21,14 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
-    @GetMapping("/list") // OK
+    @GetMapping("/list")
     public List<Patient> getAllPatients() {
 
         logger.info("New request GetMapping : show all Patients");
         return patientService.findAll();
     }
 
-    @DeleteMapping("/delete/{id}") // OK
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deletePatient(@PathVariable Long id) {
 
         logger.info("New request DeleteMapping : deletePatient : " + id);
@@ -36,45 +36,27 @@ public class PatientController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    //@PostMapping(path = "/add", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    //@PostMapping(path = "/validate", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-  /*  @PostMapping(path = "/validate")
-    //public RedirectView savePatientUri(@ModelAttribute Patient newPatient) {
-    public RedirectView savePatientUri(@RequestBody Patient newPatient) {
-        patientService.addPatient(newPatient);
-        return new RedirectView("/patient/all");
-    }*/
 
-    @PostMapping(path = "/validate") // OK
+    @PostMapping(path = "/validate")
     public void savePatientUri(@RequestBody Patient newPatient) {
 
         logger.info("New request PostMapping : savePatientUri : " + newPatient.toString());
         patientService.addPatient(newPatient);
     }
 
-    @PutMapping("/update/{id}") // OK
+    @PutMapping("/update/{id}")
     public void updatePatient(@PathVariable Long id,@RequestBody @Valid Patient patient) {
 
         logger.info("New request PutMapping : updatePatient : " + patient.toString());
         patientService.updatePatient(id, patient);
     }
 
-/*    @GetMapping("/update/{id}")
-    public Patient showUpdateForm(@PathVariable Long id) {
 
-        logger.info("New request GetMapping : show Update Form");
-        return patientService.findById(id);
-    }*/
-    @GetMapping("/{id}") // OK
+    @GetMapping("/{id}")
     public Patient showPatient(@PathVariable Long id) {
 
         logger.info("New request GetMapping : showPatient");
         return patientService.findById(id);
     }
-/*    @PostMapping(path = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void savePatient(@RequestBody Patient newPatient) {
 
-        logger.info("New request PostMapping : savePatient : " + newPatient.toString());
-        patientService.addPatient(newPatient);
-    }*/
 }

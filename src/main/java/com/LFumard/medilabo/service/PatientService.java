@@ -8,8 +8,6 @@ public interface PatientService {
 
     void addPatient(Patient patient);
 
-    //Patient getPatient(Long patientId);
-
     void updatePatient(Long id, Patient patient);
 
     List<Patient> findAll();
